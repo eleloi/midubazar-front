@@ -1,0 +1,18 @@
+{
+  "semi": false,
+  "proseWrap": "always",
+  "tabWidth": 2,
+  "plugins": [
+    "prettier-plugin-astro"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.svg"
+      ],
+      "options": {
+        "parser": "html"
+      }
+    }
+  ]
+}
