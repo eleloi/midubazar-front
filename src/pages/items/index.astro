@@ -1,0 +1,34 @@
+---
+import Layout from "@/layouts/FullHeight.astro"
+import HeaderSearchInput from "@/components/HeaderSearchInput.astro"
+import ResultResume from "@/components/ResultResume.astro"
+import ProductList from "@/components/ProductList.astro"
+import { searchProducts } from "@/services"
+
+const url = new URL(Astro.request.url)
+const q = url.searchParams.get("search")
+const data = await searchProducts({ q })
+---
+
+<Layout title={`Resultados de búsqueda de ${q}`}>
+  <HeaderSearchInput slot="header" value={q} />
+  <ResultResume slot="tags" q={q} data={data} />
+  <div slot="main">
+    {
+      data.length === 0 ? (
+        <p class="no-results">No hay resultados</p>
+      ) : (
+        <ProductList data={data} />
+      )
+    }
+  </div>
+</Layout>
+
+<style>
+  .no-results {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--color-error);
+    margin-top: 2rem;
+  }
+</style>

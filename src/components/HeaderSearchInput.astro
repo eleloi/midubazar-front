@@ -1,0 +1,27 @@
+---
+import SearchInput from "./SearchInput.astro"
+import FoodTruck from "@/icons/food-truck.svg"
+
+interface Props {
+  value: string | null
+}
+
+const { value } = Astro.props
+---
+
+<header>
+  <a href="/"
+    ><img width="50" height="50" src={FoodTruck.src} alt="Food Truck" /></a
+  >
+  <SearchInput value={value} />
+</header>
+
+<style>
+  header {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    padding-top: 1rem;
+    justify-content: center;
+  }
+</style>

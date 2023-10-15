@@ -1,0 +1,76 @@
+---
+import type { Product } from "@/types"
+import Stars from "./Stars.astro"
+
+interface Props {
+  data: Product[]
+}
+const { data } = Astro.props
+---
+
+<ul>
+  {
+    data.map((product) => (
+      <li>
+        <a href={`/items/${product.id}`}>
+          <img src={product.thumbnail} alt={product.title} />
+
+          <div>
+            <header>
+              <h4>{product.title}</h4>
+            </header>
+
+            <p>{product.description}</p>
+            <div class="price-row">
+              <p>{product.price}$</p>
+              <div>
+                <Stars rating={product.rating} />
+              </div>
+            </div>
+          </div>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    padding: 0rem 2rem;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1rem 1rem;
+  }
+
+  li:hover {
+    background-color: #c0c8d675;
+  }
+
+  li img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    justify-self: end;
+  }
+
+  h4 {
+    font-weight: 700;
+    font-size: 1.2rem;
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.6rem;
+  }
+
+  .price-row p {
+    font-weight: 700;
+    font-size: 1.4rem;
+  }
+</style>

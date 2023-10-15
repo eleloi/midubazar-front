@@ -1,0 +1,77 @@
+---
+import type { Product, Category } from "@/types"
+interface Props {
+  q: string | null
+  data: Product[]
+}
+
+const { q, data } = Astro.props
+
+const categories = data.reduce<Record<string, number>>((acc, cur) => {
+  const { category } = cur
+  acc[category] = acc[category] || 0
+  acc[category] += 1
+  return acc
+}, {})
+
+type CategoryConfig = {
+  [key in Category]: {
+    color: string
+    icon: string
+  }
+}
+
+const categoryConfigs: CategoryConfig = {
+  laptops: {
+    color: "bg-blue-500",
+    icon: "💻",
+  },
+  smartphones: {
+    color: "bg-green-500",
+    icon: "📱",
+  },
+  fragrances: {
+    color: "bg-yellow-500",
+    icon: "🍋",
+  },
+  "home-decoration": {
+    color: "bg-red-500",
+    icon: "🏠",
+  },
+  skincare: {
+    color: "bg-purple-500",
+    icon: "🧴",
+  },
+  groceries: {
+    color: "bg-pink-500",
+    icon: "🍎",
+  },
+}
+---
+
+<div>
+  <p class="tags-header">Resultados de búsqueda de "{q}": {data.length}</p>
+  <div class="px-4 flex gap-2 overflow-x-auto">
+    {
+      Object.entries(categories).map(([category, count]) => {
+        const { color, icon } = categoryConfigs[category as Category]
+        return (
+          <a
+            href={`/items?search=${category}`}
+            class={`${color} shrink-0 font-bold px-2 py-1`}
+          >
+            <span class="mr-2">{icon}</span> {category} - {count}
+          </a>
+        )
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .tags-header {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+  }
+</style>

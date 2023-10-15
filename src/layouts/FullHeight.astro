@@ -11,7 +11,7 @@ import Layout from "./Layout.astro"
   <div class="container">
     <slot name="header" />
     <slot name="tags" />
-    <slot name="main" />
+    <main><slot name="main" /></main>
     <slot name="footer" />
   </div>
 </Layout>
@@ -23,5 +23,7 @@ import Layout from "./Layout.astro"
     grid-template-rows: min-content min-content 1fr min-content;
     grid-template-columns: 1fr;
     justify-items: center;
+    gap: 2rem;
+    overflow-y: auto;
   }
 </style>
