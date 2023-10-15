@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Bazar online" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-background: #fff;
+    --color-primary: #e59bca;
+    --color-primary-active: #fcabdf;
+    --color-error: #cc0000;
+    --color-secondary: #86cefe;
+    --color-shadow: #2746cd;
+    --color-input: #ececec;
+  }
+
+  body {
+    background-color: var(--color-background);
+  }
+</style>
+
+<style>
+  body {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 100vh;
+    overflow-y: hidden;
+  }
+</style>
