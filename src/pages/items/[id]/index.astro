@@ -1,0 +1,89 @@
+---
+import Layout from "@/layouts/FullHeight.astro"
+import HeaderSearchInput from "@/components/HeaderSearchInput.astro"
+import { productDetail } from "@/services"
+import ProductCarrousel from "@/components/ProductCarrousel.svelte"
+import Stars from "@/components/Stars.astro"
+
+const { id } = Astro.params
+const product = await productDetail({ id })
+---
+
+<Layout title={product?.title ?? ""}>
+  <HeaderSearchInput slot="header" value="" />
+  <div slot="header"></div>
+  <div slot="main">
+    {
+      product == null ? (
+        <p class="no-results">Producto no encontrado</p>
+      ) : (
+        <>
+          <ProductCarrousel client:visible product={product} />
+          <h4>
+            {product.title} - {product.brand}
+          </h4>
+          <header>
+            <div class="price-block">
+              <p class="price">{product.price}$</p>
+              <p class="stock">{product.stock} dispnibles</p>
+            </div>
+
+            <Stars rating={product.rating} />
+          </header>
+          <p class="px-16 pt-8">{product.description}</p>
+        </>
+      )
+    }
+  </div>
+  <button slot="footer">Comprar</button>
+</Layout>
+
+<style>
+  button {
+    margin: 3rem 0;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+    padding: 0.5rem 1.7rem;
+    font-size: 1.7rem;
+    box-shadow: 1px 2px 4px var(--color-shadow);
+  }
+
+  button:hover {
+    background-color: var(--color-primary-active);
+  }
+
+  button:active {
+    background-color: var(--color-primary-active);
+    box-shadow: none;
+    transform: translate(1px, 1px);
+  }
+
+  .no-results {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--color-error);
+    margin-top: 2rem;
+  }
+
+  h4 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.7rem;
+  }
+
+  header {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 2rem;
+  }
+
+  .price-block {
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .price {
+    font-size: 1.4rem;
+  }
+</style>
