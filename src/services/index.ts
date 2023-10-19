@@ -1,6 +1,6 @@
 import type { Product } from "@/types"
 
-const URL = import.meta.env.URL
+const URL = import.meta.env.API_URL
 
 export async function searchProducts({ q }: { q: string | null }) {
   if (!q) return Promise.resolve([])
