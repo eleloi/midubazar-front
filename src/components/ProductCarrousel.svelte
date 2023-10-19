@@ -10,7 +10,6 @@
     const col1 = document.querySelector("#main-image")
     const col2 = document.querySelector("#col-2")
     const height = col1?.clientHeight
-    console.log(height)
     col2?.setAttribute("style", `height: ${height}px`)
 
   }
@@ -30,6 +29,8 @@
     })
 
   })
+
+
 </script>
 
 
@@ -40,6 +41,7 @@
       class="main-image"
       src={product.images[currentImage]}
       alt={product.title}
+      on:load={setCol2Height}
     />
   </div>
 
@@ -56,7 +58,7 @@
 <style>
   .container {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 125px;
     justify-items: center;
     padding: 0rem 2rem;
   }
